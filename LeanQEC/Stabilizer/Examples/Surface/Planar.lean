@@ -1157,7 +1157,7 @@ lemma zCheckMatrix_coefficient_zero (L : ℕ) (hL : 1 < L)
 
 lemma zCheckMatrix_rows_independent (L : ℕ) (hL : 1 < L) :
     LinearIndependent (ZMod 2) (zCheckMatrix L) := by
-  rw [Fintype.linearIndependent_iff]
+  apply Fintype.linearIndependent_iff.mpr
   intro g hg p
   have hpmod : p.1 % L < L := Nat.mod_lt _ (Nat.lt_of_succ_lt hL)
   have hpdiv : p.1 / L < L := zRow_y_lt L hL p
@@ -1205,7 +1205,7 @@ lemma xCheckMatrix_coefficient_zero (L : ℕ) (hL : 1 < L)
 
 lemma xCheckMatrix_rows_independent (L : ℕ) (hL : 1 < L) :
     LinearIndependent (ZMod 2) (xCheckMatrix L) := by
-  rw [Fintype.linearIndependent_iff]
+  apply Fintype.linearIndependent_iff.mpr
   intro g hg i
   have hpmod : i.1 % (L + 1) < L + 1 := Nat.mod_lt _ (by omega)
   have hpdiv : i.1 / (L + 1) < L - 1 := xRow_y_lt L hL i
