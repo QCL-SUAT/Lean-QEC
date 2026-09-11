@@ -1,0 +1,11 @@
+/build
+/lake-packages/*
+/.lake/*
+.venv
+.env
+Aristotle/apikey.txt
+Aristotle/Solutions
+Aristotle/Targets
+__pycache__/
+*.pyc
+*.lrat
