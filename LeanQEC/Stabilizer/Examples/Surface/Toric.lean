@@ -86,99 +86,216 @@ lemma toricH₁_mul_toricH₂_eq_one {L : ℕ} [NeZero L] {i1 j1 i2 j2 : Fin L} 
   rcases H with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars
   -- Top left vertex
   case inl =>
-    rw [Finset.sum_eq_single_of_mem (i2, j1)]
-    case h => simp
-    case h₀ =>
-      intro (i', j') _ H
-      apply if_neg; dsimp
-      rw [not_and]
-      simp only [toricH₁_conn, toricH₂_conn]
-      intro H1
-      rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-    dsimp; apply if_pos
-    simp only [toricH₁_conn, toricH₂_conn]
-    fin_cases d <;> simp
+    fin_cases d
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i2, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i2 := by
+          rcases H1 with ⟨_, h, _⟩ | ⟨_, h, _⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        have hx2 : x.2 = j1 := by
+          rcases H2 with ⟨_, _, h⟩ | ⟨_, _, h⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i2, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i2 := by
+          rcases H2 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, h, _⟩ | ⟨_, h, _⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        have hx2 : x.2 = j1 := by
+          rcases H1 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, _, h⟩ | ⟨_, _, h⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
   -- Bottom left vertex
   case inr.inl =>
     fin_cases d; simp
-    · rw [Finset.sum_eq_single_of_mem (i1, j1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]
-      simp
-    · simp
-      rw [Finset.sum_eq_single_of_mem (i1-1, j1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]; simp
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i1, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i1 := by
+          rcases H1 with ⟨_, h, _⟩ | ⟨_, h, _⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        have hx2 : x.2 = j1 := by
+          rcases H2 with ⟨_, _, h⟩ | ⟨_, _, h⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i1-1, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i1-1 := by
+          rcases H2 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, h, _⟩ | ⟨_, h, _⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        have hx2 : x.2 = j1 := by
+          rcases H1 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, _, h⟩ | ⟨_, _, h⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
   -- Top right vertex
   case inr.inr.inl =>
     fin_cases d; simp
-    · rw [Finset.sum_eq_single_of_mem (i2, j1-1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]
-      simp
-    · simp
-      rw [Finset.sum_eq_single_of_mem (i2, j1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]; simp
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i2, j1-1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i2 := by
+          rcases H1 with ⟨_, h, _⟩ | ⟨_, h, _⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        have hx2 : x.2 = j1-1 := by
+          rcases H2 with ⟨_, _, h⟩ | ⟨_, _, h⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i2, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i2 := by
+          rcases H2 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, h, _⟩ | ⟨_, h, _⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        have hx2 : x.2 = j1 := by
+          rcases H1 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, _, h⟩ | ⟨_, _, h⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
   -- Bottom right vertex
   case inr.inr.inr =>
     fin_cases d; dsimp
-    · rw [Finset.sum_eq_single_of_mem (i1, j1-1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]
-      simp
-    · simp
-      rw [Finset.sum_eq_single_of_mem (i1-1, j1)]
-      case h => simp
-      case h₀ =>
-        intro (i', j') _ H
-        apply if_neg; dsimp
-        rw [not_and]
-        simp only [toricH₁_conn, toricH₂_conn]
-        intro H1
-        rcases H1 with ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ | ⟨_, _, _, _⟩ <;> subst_vars <;> simp_all
-      dsimp; apply if_pos
-      simp only [toricH₁_conn, toricH₂_conn]; simp
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i1, j1-1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i1 := by
+          rcases H1 with ⟨_, h, _⟩ | ⟨_, h, _⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        have hx2 : x.2 = j1-1 := by
+          rcases H2 with ⟨_, _, h⟩ | ⟨_, _, h⟩ | ⟨h, _, _⟩ | ⟨h, _, _⟩
+          · exact h
+          · exact h
+          · simp at h
+          · simp at h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
+    · try rw [Finset.sum_boole]
+      rw [show (1 : ZMod 2) = ((1 : ℕ) : ZMod 2) by norm_num]
+      congr 1
+      rw [Finset.card_eq_one]
+      refine ⟨(i1-1, j1), ?_⟩
+      ext x
+      simp only [Finset.mem_filter, Finset.mem_univ, true_and, Finset.mem_singleton]
+      constructor
+      · rintro ⟨H1, H2⟩
+        simp only [toricH₁_conn, toricH₂_conn] at H1 H2
+        have hx1 : x.1 = i1-1 := by
+          rcases H2 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, h, _⟩ | ⟨_, h, _⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        have hx2 : x.2 = j1 := by
+          rcases H1 with ⟨h, _, _⟩ | ⟨h, _, _⟩ | ⟨_, _, h⟩ | ⟨_, _, h⟩
+          · simp at h
+          · simp at h
+          · exact h
+          · exact h
+        exact Prod.ext hx1 hx2
+      · intro hx; subst hx
+        simp [toricH₁_conn, toricH₂_conn]
 
 
 lemma toric_orth (L : ℕ) [NeZero L] :
@@ -750,10 +867,10 @@ lemma row_sum_even {L : ℕ} [NeZero L] (Hne_one : L ≠ 1) :
     set x := row_wind (i-1); set y := row_wind i;
     clear_value x y
     fin_cases x <;> fin_cases y
-    · simp_all
+    · rfl
     · exact absurd Hver (by decide)
     · exact absurd Hver (by decide)
-    · simp_all
+    · rfl
   obtain ⟨c, Hrow_const⟩ := Hrow_const
   fin_cases c <;> simp at Hrow_const
   · apply Hrow_const
@@ -828,10 +945,10 @@ lemma col_sum_even {L : ℕ} [NeZero L] (Hne_one : L ≠ 1) :
       set x := col_wind (j-1); set y := col_wind j;
       clear_value x y
       fin_cases x <;> fin_cases y
-      · simp_all
+      · rfl
       · exact absurd Hver (by decide)
       · exact absurd Hver (by decide)
-      · simp_all
+      · rfl
     obtain ⟨c, Hcol_const⟩ := Hcol_const
     fin_cases c <;> simp at Hcol_const
     · apply Hcol_const
@@ -1223,7 +1340,6 @@ lemma helpZ {L : ℕ} [NeZero L] (Hne_one : L ≠ 1) :
     apply toricH₁_is_xor_constraints Hne_one
     apply toricH₂_is_xor_constraints_inv Hne_one at Hrow
     replace Hrow := congrArg (· ∘ rotate_inv') Hrow
-    simp at Hrow
     rw [Function.comp_assoc] at Hrow
     rw [rotate'_cancel, Function.comp_id] at Hrow
     subst_vars
