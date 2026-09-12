@@ -1,0 +1,36 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["a6722fbb25197a46.olean"],
+  "m": false,
+  "i": "f275d58b0e33a918.ilean",
+  "c": "7766c086fd21a8ee.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\lean\\mathlib4\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\build\\lib\\lean;C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean c:\\Users\\Administrator\\.elan\\toolchains\\leanprover--lean4---v4.34.0-rc1\\bin\\lean.exe C:\\lean\\libs\\Lean-QEC\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.lean -o C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.olean -i C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.ilean -c C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.c --setup C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "LeanQEC/AI_Generated/TediousLinearAlgebra.lean:68:0: SemigroupAction.mul_smul.{u_9, u_10} {α : Type u_9} {β : Type u_10} {inst✝ : Semigroup α} [self : SemigroupAction α β]\n  (x y : α) (b : β) : (x * y) • b = x • y • b",
+   "level": "info"}],
+ "inputs":
+ [["deps",
+   [["LeanQEC/LeanQEC:extraDep", [["@LeanQEC:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["Mathlib transitive imports (legacy)", "b616e9641d7cce5e"],
+      ["Mathlib:importAllArts", "44e495f36cae4177"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 3447a668783dbce1a8fdb97101dd067687b2b418",
+   "421484e3e0c70198"],
+  ["C:\\lean\\libs\\Lean-QEC\\LeanQEC\\AI_Generated\\TediousLinearAlgebra.lean",
+   "c7a0c490b9df55fd"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanQEC.AI_Generated.TediousLinearAlgebra",
+   "51ecb3e1eb147238"],
+  ["Package.id?: (some LeanQEC)", "2d2c6dec2b566741"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "0a4be786c803c602"}
