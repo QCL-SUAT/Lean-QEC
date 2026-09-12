@@ -223,12 +223,12 @@ lemma cast_fin_append_iter1 {t n₁ n₂} (m₁ : Fin (n₁ + 1) -> t) (m₂ : F
   · simp [Fin.append, Fin.addCases, Fin.castLT]
   by_cases H: (a₀ < n₁)
   · simp [Fin.append, Fin.addCases, Fin.castLT]
-    rw [dif_pos] <;> try assumption
+    rw [dite_eq_left] <;> try assumption
     simp [Fin.cons]
-    rw [dif_pos] <;> try assumption
+    rw [dite_eq_left] <;> try assumption
     simp [Fin.tail]
   simp [Fin.append, Fin.addCases, Fin.castLT]
-  rw [dif_neg] <;> try assumption
+  rw [dite_eq_right] <;> try assumption
   simp [Fin.cons]
   intro H
   contradiction

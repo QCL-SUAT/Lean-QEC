@@ -82,7 +82,7 @@ lemma toMat_symm_apply' {t : Type*} (m : Matrix t (BitVec 0) ℂ) (n : t) :
 lemma mulvec_toMat {t u} {fin_u : Fintype u} (U : Matrix t u ℂ) (v : u → ℂ) :
   toMat (U *ᵥ v) = U * (toMat v) := by
     ext n j
-    simp only [toMat_apply', toMat_symm_apply', Matrix.mul_apply, Matrix.mulVec, dotProduct]
+    simp only [toMat_apply', Matrix.mul_apply, Matrix.mulVec, dotProduct]
 
 def ket_prod {n₁ n₂}
     (v1 : BitVec n₁ → ℂ)

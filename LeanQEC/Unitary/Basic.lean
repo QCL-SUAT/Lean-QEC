@@ -51,7 +51,7 @@ match n with
 
 def unitaries_cat {l₁ l₂ n : ℕ} (m₁ : Fin l₁ → 𝐔ₙ[n]) (m₂ : Fin l₂ → 𝐔ₙ[n]) : Fin (l₁ + l₂) → 𝐔ₙ[n] :=
   fun x => if hle : x < l₁ then (m₁ ⟨x.1, hle⟩)
-  else (m₂ ⟨x.1 - l₁, by push_neg at hle; apply Nat.sub_lt_right_of_lt_add hle; simp_rw [add_comm]; exact x.2⟩)
+  else (m₂ ⟨x.1 - l₁, by push Not at hle; apply Nat.sub_lt_right_of_lt_add hle; simp_rw [add_comm]; exact x.2⟩)
 
 /-
 theorem unitaries_cat_nkron {l₁ l₂} (m₁ : Fin l₁ → 𝐔ₙ[1]) (m₂ : Fin l₂ → 𝐔ₙ[1]) :
@@ -73,7 +73,7 @@ lemma unitary_herm_of_kron_herm {n₁ n₂ : ℕ} {M₁ : 𝐔ₙ[n₁]} {M₂ :
   rw [Matrix.conjTranspose_kronecker]
   rw [hM₁, hM₂]
 
-def herm_of_qubit_tensor_herm {n : ℕ} (m : Fin n → 𝐔ₙ[1]) (Hm : ∀ x, Matrix.IsHermitian (m x).1) :
+theorem herm_of_qubit_tensor_herm {n : ℕ} (m : Fin n → 𝐔ₙ[1]) (Hm : ∀ x, Matrix.IsHermitian (m x).1) :
   Matrix.IsHermitian (unitary_n_nkron m).1 := by
   induction n with
   | zero => exact Matrix.isHermitian_one

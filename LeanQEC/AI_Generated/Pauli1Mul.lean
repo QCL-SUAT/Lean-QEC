@@ -139,34 +139,28 @@ lemma mul_Pauli1_correct (P Q : Pauli) :
     rw [U_phase_id]
     simpa [mul_Pauli1, Pauli_X, Pauli_Y, Pauli_Z, Pauli_I, pgphase_i, pgphase_ni] using pX_sq
   · simp [mul_Pauli1]
-    change Pauli_X.val * Pauli_Y.val = U_phase Pauli_Z.val ↑pgphase_i
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_i] using pX_mul_pY
   · simp [mul_Pauli1]
-    change Pauli_X.val * Pauli_Z.val = U_phase Pauli_Y.val ↑pgphase_ni
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_ni] using pX_mul_pZ
   · simp [mul_Pauli1]
     change Pauli_X.val * Pauli_I.val = U_phase Pauli_X.val phase_id
     rw [U_phase_id]
     simp [Pauli_I]
   · simp [mul_Pauli1]
-    change Pauli_Y.val * Pauli_X.val = U_phase Pauli_Z.val ↑pgphase_ni
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_ni] using pY_mul_pX
   · simp [mul_Pauli1]
     change Pauli_Y.val * Pauli_Y.val = U_phase Pauli_I.val phase_id
     rw [U_phase_id]
     simpa [mul_Pauli1, Pauli_X, Pauli_Y, Pauli_Z, Pauli_I, pgphase_i, pgphase_ni] using pY_sq
   · simp [mul_Pauli1]
-    change Pauli_Y.val * Pauli_Z.val = U_phase Pauli_X.val ↑pgphase_i
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_i] using pY_mul_pZ
   · simp [mul_Pauli1]
     change Pauli_Y.val * Pauli_I.val = U_phase Pauli_Y.val phase_id
     rw [U_phase_id]
     simp [Pauli_I]
   · simp [mul_Pauli1]
-    change Pauli_Z.val * Pauli_X.val = U_phase Pauli_Y.val ↑pgphase_i
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_i] using pZ_mul_pX
   · simp [mul_Pauli1]
-    change Pauli_Z.val * Pauli_Y.val = U_phase Pauli_X.val ↑pgphase_ni
     simpa [Pauli_X, Pauli_Y, Pauli_Z, pgphase_ni] using pZ_mul_pY
   · simp [mul_Pauli1]
     change Pauli_Z.val * Pauli_Z.val = U_phase Pauli_I.val phase_id

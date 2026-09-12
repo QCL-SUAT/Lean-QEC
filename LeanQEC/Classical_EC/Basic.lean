@@ -114,7 +114,7 @@ theorem generatorMatrix_image_eq_CodeSpace (C : CodeSpace n) (G : Matrix α (Fin
   refine' ⟨f, ⟨_, _⟩⟩
   · unfold Function.support
     intro a ha
-    simp only [ne_eq, Set.mem_setOf_eq] at ha
+    simp only [ne_eq, Set.mem_ofPred_eq] at ha
     by_cases arange: a ∈ Set.range ⇑mmap
     · rw [Set.mem_range] at arange
       obtain ⟨y, hy⟩ := arange
@@ -156,9 +156,9 @@ lemma dual_finrank_eq {C : CodeSpace n} : Module.finrank (ZMod 2) C.dualCode = n
     ext x
     constructor
     · intro hx n₁ hn₁
-      simpa [B, LinearMap.BilinForm.IsOrtho, Matrix.toBilin'_apply', dotProductBilin] using hx n₁ hn₁
+      simpa [B, Matrix.toBilin'_apply', dotProductBilin] using hx n₁ hn₁
     · intro hx n₁ hn₁
-      simpa [B, LinearMap.BilinForm.IsOrtho, Matrix.toBilin'_apply', dotProductBilin] using hx n₁ hn₁
+      simpa [B, Matrix.toBilin'_apply', dotProductBilin] using hx n₁ hn₁
   have hB_refl : B.IsRefl := by
     intro x y hxy
     simpa [B, Matrix.toBilin'_apply', dotProduct_comm] using hxy

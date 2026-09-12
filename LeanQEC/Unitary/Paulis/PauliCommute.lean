@@ -94,7 +94,7 @@ lemma mul_nkrons {n₁ n₂} (U₁ U₁' : 𝐔ₙ[n₁]) (U₂ U₂' : 𝐔ₙ[
   simp [unitary_nkron, normalized_kron]
   rw [Matrix.mul_kronecker_mul]
 
-def anticommuteₘ_iter {n} (m m' : Fin (n + 1) -> Pauli) :
+theorem anticommuteₘ_iter {n} (m m' : Fin (n + 1) -> Pauli) :
   anticommuteₘ (Fin.tail m) (Fin.tail m') =
   (anticommuteₘ m m' ^^ (!commute₁ (m 0) (m' 0))) := by
   simp [anticommuteₘ]

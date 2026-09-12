@@ -96,8 +96,8 @@ lemma exists_ker_dotProduct_eq_one_of_not_mem_rowSpace {n k : ℕ} (M : Matrix (
     (x : Fin n → ZMod 2) (hx : x ∉ M.rowSpace) :
     ∃ y ∈ LinearMap.ker M.toLin', y ⬝ᵥ x = 1 := by
   unfold Matrix.rowSpace at hx
-  letI : Fact (Nat.Prime 2) := ⟨by decide⟩
-  letI : Module.Free (ZMod 2) ((Fin n → ZMod 2) ⧸ Submodule.span (ZMod 2) (Set.range M.row)) :=
+  let : Fact (Nat.Prime 2) := ⟨by decide⟩
+  let : Module.Free (ZMod 2) ((Fin n → ZMod 2) ⧸ Submodule.span (ZMod 2) (Set.range M.row)) :=
     Module.Free.of_basis (Module.Basis.ofVectorSpace (ZMod 2) _)
 
   obtain ⟨f, hfx, hf_bot⟩ := Submodule.exists_dual_map_eq_bot_of_notMem hx inferInstance
@@ -152,7 +152,7 @@ lemma exists_dotProduct_one_of_sum
   (hS_sum : S.sum id = y) (hy : y ⬝ᵥ x = 1) :
   ∃ s ∈ S, s ⬝ᵥ x = 1 := by
   by_contra h_all
-  push_neg at h_all
+  push Not at h_all
   have h_zero : ∀ s ∈ S, s ⬝ᵥ x = 0 := by
     intro s hs
     rcases Fin.exists_fin_two.mp ⟨s ⬝ᵥ x, rfl⟩ with h | h
@@ -281,7 +281,7 @@ lemma Matrix.is_ker_for_of_rank_sum_mutually_orth
       congr 1
     have h_subspace : Submodule.span (ZMod 2) (Set.range M₂) ≤ LinearMap.ker (Matrix.toLin' M₁) := by
       rw [ Submodule.span_le ];
-      rintro _ ⟨ i, rfl ⟩ ; specialize ho; simp_all +decide [ Matrix.mulVec, dotProduct ] ;
+      rintro _ ⟨ i, rfl ⟩ ; specialize ho; simp_all +decide [  ] ;
       exact funext fun j => by simpa [ Matrix.mulVec, dotProduct ] using ho j i;
     have h_eq : Submodule.span (ZMod 2) (Set.range M₂) = LinearMap.ker (Matrix.toLin' M₁) := by
       exact Submodule.eq_of_le_of_finrank_le h_subspace ( by omega );

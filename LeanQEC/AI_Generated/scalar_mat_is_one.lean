@@ -20,7 +20,7 @@ lemma scalar_mat_is_one {T T'} [Fintype T] [Fintype T'] [Nonempty T] [Nonempty T
     -- Since $M \neq 0$, there exists some $i$ and $j$ such that $M_{ij} \neq 0$.
     obtain ⟨i, j, hij⟩ : ∃ i j, M i j ≠ 0 := by
       -- Since $M \neq 0$, there must exist some $i$ and $j$ such that $M i j \neq 0$.
-      by_contra h_contra; push_neg at h_contra; exact ne0_M (by ext i j; exact h_contra i j);
+      by_contra h_contra; push Not at h_contra; exact ne0_M (by ext i j; exact h_contra i j);
     -- Since $M_{ij} \neq 0$, we can divide both sides of $s * M_{ij} = M_{ij}$ by $M_{ij}$ to get $s = 1$.
     have hs : s * M i j = M i j := by
       -- By taking the (i, j) entry of both sides of the equation s • M = M, we get s * M i j = M i j.

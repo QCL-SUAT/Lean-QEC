@@ -142,9 +142,9 @@ lemma foldPauli_scalar_sq {n : ℕ} (z : pgroup_phases) :
   · rw [ eq_comm ];
     exact beq_eq_beq.mp rfl;
   · unfold mul_Pauli1_tuples; simp +decide [ pointwise_mul_Paulis, collect_phases ] ;
-    unfold mul_Pauli1; simp +decide [ mul_comm_pgroup_phases, mul_one ] ;
-    unfold fold_pgroup_phases; simp +decide [ mul_comm_pgroup_phases, mul_one ] ;
-    cases n <;> simp +decide [ mul_comm_pgroup_phases, mul_one ];
+    unfold mul_Pauli1; simp +decide [  ] ;
+    unfold fold_pgroup_phases; simp +decide [  ] ;
+    cases n <;> simp +decide [  ];
     induction' ‹ℕ› with n ih <;> simp_all +decide [ Fin.tail, fold_pgroup_phases ];
     · grind +suggestions;
     · convert ih using 1
@@ -312,6 +312,9 @@ lemma inv_eq_self_of_mul_self_eq_one {G : Type*} [Group G] {g : G} (hg : g * g =
   have h := congrArg (fun x => g⁻¹ * x) hg
   simpa [mul_assoc] using h.symm
 
+-- intentionally semireducible: it is instantiated explicitly (`let ... := subgroupCarrierCommGroup ...`)
+-- rather than found by typeclass search, and making it instance-reducible would widen unification.
+set_option warn.classDefReducibility false in
 noncomputable def subgroupCarrierCommGroup {G : Type*} [Group G] (H : Subgroup G)
     [IsMulCommutative ↥H] : CommGroup ↥H where
   toGroup := inferInstance
@@ -673,7 +676,7 @@ lemma BinSympMatrix.rowStabElem_mul_self_eq_one {n k : ℕ} (bsm : BinSympMatrix
 
 noncomputable def BinSympMatrix.rowProductSub {n k : ℕ} (bsm : BinSympMatrix k n) (h_comm : bsm.isCommuting)
     (ind : Fin k → ZMod 2) : ↥(bsm.stabClosure h_comm) :=
-  letI : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
+  let : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
   Finset.univ.prod (fun i => if ind i = 1 then bsm.rowStabElem h_comm i else (1 : ↥(bsm.stabClosure h_comm)))
 
 def BinSympMatrix.rowProduct {n k : ℕ} (bsm : BinSympMatrix k n) (h_comm : bsm.isCommuting)
@@ -683,7 +686,7 @@ def BinSympMatrix.rowProduct {n k : ℕ} (bsm : BinSympMatrix k n) (h_comm : bsm
 @[simp]
 lemma BinSympMatrix.rowProduct_zero {n k : ℕ} (bsm : BinSympMatrix k n) (h_comm : bsm.isCommuting) :
     bsm.rowProduct h_comm (fun _ => (0 : ZMod 2)) = 1 := by
-  letI : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
+  let : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
   have hsub : bsm.rowProductSub h_comm (fun _ => (0 : ZMod 2)) = 1 := by
     unfold BinSympMatrix.rowProductSub
     simp only [zero_ne_one, ↓reduceIte]
@@ -694,7 +697,7 @@ lemma BinSympMatrix.rowProduct_zero {n k : ℕ} (bsm : BinSympMatrix k n) (h_com
 
 lemma BinSympMatrix.rowProduct_single {n k : ℕ} (bsm : BinSympMatrix k n) (h_comm : bsm.isCommuting) (i : Fin k) :
     bsm.rowProduct h_comm (Pi.single i (1 : ZMod 2)) = BinSympPauli_toPauli (bsm.row i) := by
-  letI : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
+  let : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
   have hsub : bsm.rowProductSub h_comm (Pi.single i (1 : ZMod 2)) = bsm.rowStabElem h_comm i := by
     unfold BinSympMatrix.rowProductSub
     simp only [Pi.single_apply]
@@ -711,7 +714,7 @@ lemma BinSympMatrix.rowProductSub_add {n k : ℕ} (bsm : BinSympMatrix k n) (h_c
     (ind₁ ind₂ : Fin k → ZMod 2) :
     bsm.rowProductSub h_comm (fun i => ind₁ i + ind₂ i) =
       bsm.rowProductSub h_comm ind₁ * bsm.rowProductSub h_comm ind₂ := by
-  letI : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
+  let : CommGroup ↥(bsm.stabClosure h_comm) := subgroupCarrierCommGroup (bsm.stabClosure h_comm)
   unfold BinSympMatrix.rowProductSub
   calc
     (∏ i, if (fun i => ind₁ i + ind₂ i) i = 1 then bsm.rowStabElem h_comm i else 1)
@@ -793,7 +796,7 @@ lemma BinSympMatrix.rowProduct_binaryImage {n k : ℕ} (bsm : BinSympMatrix k n)
         have hzero : Pi.single (M := fun _ : Fin k => ZMod 2) i (0 : ZMod 2) =
             fun _ => (0 : ZMod 2) := by
           ext j
-          by_cases h : j = i <;> simp [Pi.single_apply, h]
+          by_cases h : j = i <;> simp [h]
         rw [hzero, BinSympMatrix.rowProduct_zero]
         simp [Pauli_toBinSympPauli_one]
       · change
@@ -806,9 +809,9 @@ lemma BinSympMatrix.rowProduct_binaryImage {n k : ℕ} (bsm : BinSympMatrix k n)
         simp [Pauli_toBinSympPauli_BinSympPauli_toPauli]
   ext i
   simp +decide [h_sum, Matrix.mulVec, dotProduct]
-  · simp +decide [mul_comm, Finset.sum_apply, BinSympMatrix.row]
+  · simp +decide [mul_comm, BinSympMatrix.row]
     simp +decide [Prod.fst_sum]
-  · simp_all +decide [Finset.sum_apply, dotProduct, Matrix.mulVec, Finset.mul_sum _ _ _]
+  · simp_all +decide [dotProduct, Matrix.mulVec]
     simp +decide [mul_comm, Finset.sum_apply, Prod.snd_sum]
     rfl
 
@@ -1034,7 +1037,7 @@ lemma BinSympMatrix.mem_rowSpace_iff_exists_indicator {k n : ℕ} (B : BinSympMa
   refine' ⟨ _, fun h ↦ _ ⟩;
   · intro h;
     refine' Submodule.span_induction _ _ _ _ h;
-    · rintro _ ⟨ i, rfl ⟩ ; use Pi.single i 1; simp +decide [ Matrix.mulVec ] ;
+    · rintro _ ⟨ i, rfl ⟩ ; use Pi.single i 1; simp +decide [  ] ;
       rfl;
     · exact ⟨ 0, by simp +decide ⟩;
     · rintro x y hx hy ⟨ ind₁, rfl ⟩ ⟨ ind₂, rfl ⟩ ; use ind₁ + ind₂; simp +decide [ Matrix.mulVec_add ] ;
@@ -1217,9 +1220,9 @@ noncomputable def BinSympPauli.form (n : ℕ) :
     LinearMap.BilinForm (ZMod 2) (BinSympPauli n) :=
   LinearMap.mk₂ (ZMod 2) symplecticProd
     (by intros; simp [symplecticProd, add_dotProduct]; abel)
-    (by intros; simp [symplecticProd, smul_dotProduct, smul_add, mul_add])
+    (by intros; simp [symplecticProd, smul_dotProduct, mul_add])
     (by intros; simp [symplecticProd, dotProduct_add]; abel)
-    (by intros; simp [symplecticProd, dotProduct_smul, smul_add, mul_add])
+    (by intros; simp [symplecticProd, dotProduct_smul, mul_add])
 
 lemma BinSympPauli.form_apply {n : ℕ} (x y : BinSympPauli n) :
     BinSympPauli.form n x y = symplecticProd x y := by
@@ -1229,15 +1232,15 @@ lemma BinSympPauli.form_nondegenerate (n : ℕ) :
     (BinSympPauli.form n).Nondegenerate := by
   unfold LinearMap.BilinForm.Nondegenerate;
   simp +decide [ LinearMap.Nondegenerate ];
-  constructor <;> intro x hx <;> ext i <;> simp_all +decide [ funext_iff, Fin.forall_fin_succ, symplecticProd ];
+  constructor <;> intro x hx <;> ext i <;> simp_all +decide [  ];
   · specialize hx 0 ( Pi.single i 1 ) ; simp_all +decide [ form ] ;
     unfold symplecticProd at hx; simp_all +decide [ dotProduct, Pi.single_apply ] ;
-  · unfold form at hx; specialize hx ( Pi.single i 1 ) 0; simp_all +decide [ dotProduct ] ;
+  · unfold form at hx; specialize hx ( Pi.single i 1 ) 0; simp_all +decide [  ] ;
     simp_all +decide [ symplecticProd, dotProduct ];
     simp_all +decide [ Pi.single_apply ];
   · specialize hx 0 ( Pi.single i 1 ) ; simp_all +decide [ form, symplecticProd ] ;
   · convert hx 0 ( Pi.single i 1 ) using 1 ; simp +decide [ form ];
-    unfold symplecticProd; simp +decide [ Finset.sum_apply, Pi.single_apply ] ;
+    unfold symplecticProd; simp +decide [  ] ;
     have := hx ( Pi.single i 1 ) 0; have := hx 0 ( Pi.single i 1 ) ; simp_all +decide [ form ] ;
     have := hx ( Pi.single i 1 ) 0; have := hx 0 ( Pi.single i 1 ) ; simp_all +decide [ symplecticProd ] ;
 
@@ -1276,11 +1279,11 @@ lemma StabCode.stabSymplecticSpace_le_normalizerSpace {n : ℕ} (C : StabCode n)
   exact (by
   intro t ht;
   refine' Submodule.span_induction _ _ _ _ ht;
-  · simp_all +decide [ BinSympPauli.form, LinearMap.IsOrtho ];
-    intro a b x hx hx' hx'' hx'''; specialize h_comm x hx hx' hx''; simp_all +decide [ LinearMap.BilinForm.IsOrtho, symplecticProd_comm ] ;
-  · simp +decide [ LinearMap.BilinForm.IsOrtho ];
-  · simp +contextual [ LinearMap.BilinForm.IsOrtho ];
-  · simp +contextual [ LinearMap.BilinForm.IsOrtho, symplecticProd ])
+  · simp_all +decide [ BinSympPauli.form ];
+    intro a b x hx hx' hx'' hx'''; specialize h_comm x hx hx' hx''; simp_all +decide [ symplecticProd_comm ] ;
+  · simp +decide [  ];
+  · simp +contextual [  ];
+  · simp +contextual [  ])
 
 lemma StabCode.finrank_normalizerSpace {n : ℕ} (C : StabCode n) :
     Module.finrank (ZMod 2) C.normalizerSpace = 2 * n - C.numGenerators := by
@@ -1309,10 +1312,10 @@ lemma StabCode.normalizerGroup_eq_comap {n : ℕ} (C : StabCode n) :
   constructor
   · intro hE y hy
     obtain ⟨s, hs, rfl⟩ := (C.mem_stabilizerSpace_iff y).1 hy
-    simpa [BinSympPauli.form_apply, LinearMap.BilinForm.IsOrtho] using hE s hs
+    simpa [BinSympPauli.form_apply] using hE s hs
   · intro hE s hs
     have := hE (Pauli_toBinSympPauli s) ((C.mem_stabilizerSpace_iff _).2 ⟨s, hs, rfl⟩)
-    simpa [BinSympPauli.form_apply, LinearMap.BilinForm.IsOrtho] using this
+    simpa [BinSympPauli.form_apply] using this
 
 /-- There are 4^(n-generators) logical operators -/
 theorem StabCode.card_logicalGroup {n : ℕ} (C : StabCode n) :
@@ -1380,6 +1383,9 @@ lemma PauliGroup.mem_phaseSubgroup_iff_scalar {n : ℕ} (P : PauliGroup_group n)
   · rintro ⟨z, rfl⟩
     simp [scalarPauli, PauliGroup.map]
 
+-- `linter.unnecessarySeqFocus` suggests `(tac1; tac2)` here, but `simp` closes more
+-- than one goal, so the `<;>` is load-bearing. Opt out for this declaration only.
+set_option linter.unnecessarySeqFocus false in
 lemma one_eq_scalarPauli_one {n : ℕ} :
     (1 : PauliGroup_group n) = scalarPauli pgphase_1 := by
   convert Pauli1_unfold <;> simp [Pauli1, scalarPauli] <;> rfl
@@ -1389,12 +1395,12 @@ Any phase other than `+1` and `-1` squares to `-1`.
 -/
 lemma pgphase_sq_eq (z : pgroup_phases) (hz1 : z ≠ pgphase_1) (hzn1 : z ≠ pgphase_n1) :
     z * z = pgphase_n1 := by
-  rcases pgphase_cases z with h | h | h | h <;> simp_all +decide [ phase, pgroup_phases ];
+  rcases pgphase_cases z with h | h | h | h <;> simp_all +decide [ pgroup_phases ];
   · exact False.elim <| hz1 <| Subtype.ext h;
   · exact False.elim <| hzn1 <| Subtype.ext h;
-  · ext ; simp +decide [ h, Phase.phase_mul_eq ];
-    erw [ Subtype.coe_mk ] at * ; simp_all +decide [ Complex.ext_iff ];
-  · ext; simp [h, mul_comm_pgroup_phases];
+  · ext ; simp +decide [  ];
+    erw [ Subtype.coe_mk ] at * ; simp_all +decide [  ];
+  · ext; simp [];
     erw [ Subtype.coe_mk ] at * ; aesop
 
 lemma ker_phi_trivial {n : ℕ} (C : StabCode n)

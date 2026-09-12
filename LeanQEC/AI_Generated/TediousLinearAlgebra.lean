@@ -37,7 +37,7 @@ lemma raw_uphase_eq_is_1 {T U}
     -- Since $u$ is not the zero matrix, there exists some entry $u_{ij} \neq 0$.
     obtain ⟨i, j, hij⟩ : ∃ i j, u i j ≠ 0 := by
       -- Since $u$ is not the zero matrix, there must be at least one entry $u_{ij} \neq 0$.
-      by_contra h_contra; push_neg at h_contra; exact ne0_u (by ext i j; exact h_contra i j);
+      by_contra h_contra; push Not at h_contra; exact ne0_u (by ext i j; exact h_contra i j);
     -- Since $u$ is not the zero matrix, there exists some entry $u_{ij} \neq 0$. From the equation $z \cdot u_{ij} = u_{ij}$, we can divide both sides by $u_{ij}$ (since $u_{ij} \neq 0$) to get $z = 1$.
     have hz_eq_one : z * u i j = u i j := by
       -- Since $z • u = u$, we have $z * u i j = u i j$ for all $i$ and $j$.

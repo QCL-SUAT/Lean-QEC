@@ -22,7 +22,7 @@ theorem CSS_BSM_is_comm {C₁ C₂ : CodeSpace n} (H_dual : (C₁.dualCode : Set
       apply H_dual
       apply C₁.pcb_prod_mem_dual x hpc₁
     unfold CodeSpace.dualCode at hy
-    rw [Submodule.mem_orthogonalBilin_iff] at hy
+    rw [Submodule.mem_orthogonalBilin] at hy
     apply hy _ hx
   refine Fin.addCases (fun x => ?_) (fun x => ?_) r₁ <;>
   refine Fin.addCases (fun y => ?_) (fun y => ?_) r₂ <;>
@@ -337,7 +337,7 @@ lemma toCodeSpace_subset_dual_of_orth_gen {n k₁ k₂ : ℕ} (M₁ : Matrix (Fi
     refine Submodule.span_le.2 ?_
     rintro y ⟨i, rfl⟩
     show M₁ i ∈ M₂.rowSpace.orthogonalBilin (dotProductBilin _ _)
-    rw [Submodule.mem_orthogonalBilin_iff]
+    rw [Submodule.mem_orthogonalBilin]
     intro z hz
     refine Submodule.span_induction ?_ ?_ ?_ ?_ hz
     · rintro _ ⟨j, rfl⟩
@@ -710,7 +710,7 @@ lemma CSS_pair.orth (C : CSS_pair n k₁ k₂) : C.H₁.mutually_orth_rows C.H�
   have hy := C.C₂.pcb_prod_mem_dual y C.hpc₂
   have hx : C.H₁ x ∈ C.C₂ := C.H_dual (C.C₁.pcb_prod_mem_dual x C.hpc₁)
   unfold CodeSpace.dualCode at hy
-  rw [Submodule.mem_orthogonalBilin_iff] at hy
+  rw [Submodule.mem_orthogonalBilin] at hy
   exact hy _ hx
 
 def CSS_pair.toStabCode (C : CSS_pair n k₁ k₂) : StabCode n :=
