@@ -9,6 +9,8 @@ Here be dragons
 
 noncomputable section
 
+set_option backward.isDefEq.respectTransparency false
+
 def three_qubit_encode:= fun (ψ : PState 1) =>
   (((ψ ⊗ₚ qub_zero) ⊗ₚ qub_zero).apply
     (Cₙ[pX] ⊗ₙ p1)).apply
@@ -167,10 +169,10 @@ Any 1-qubit state vector can be written as a linear combination of |0> and |1>.
 -/
 open Qubit Function Matrix
 
-lemma vec_eq_linear_combo (ψ : PState 1) : ψ.vec = ψ 0 • qub_zero.vec + ψ 1 • qub_one.vec := by
+lemma vec_eq_linear_combo (ψ : PState 1) : ψ = ψ 0 • qub_zero + ψ 1 • qub_one := by
   ext x; fin_cases x <;> norm_num [ qub_zero, qub_one ] ;
-  · exact show ψ.vec 0 = ψ.vec 0 * 1 + ψ.vec 1 * 0 by ring;
-  · exact show ψ.vec 1 = ψ.vec 0 * 0 + ψ.vec 1 * 1 by ring;
+  · exact show ψ 0 = ψ 0 * 1 + ψ 1 * 0 by ring;
+  · exact show ψ 1 = ψ 0 * 0 + ψ 1 * 1 by ring;
 
 /-
 Define a vector-only version of the encoding map and prove it matches the PState version.
@@ -178,12 +180,12 @@ Define a vector-only version of the encoding map and prove it matches the PState
 open Qubit Function Matrix
 
 noncomputable def encode_vec (v : BitVec 1 → ℂ) : BitVec 3 → ℂ :=
-  let v0 := ket_prod (ket_prod v qub_zero.vec) qub_zero.vec
+  let v0 := ket_prod (ket_prod v qub_zero) qub_zero
   let v1 := (Cₙ[pX] ⊗ₙ p1).1.mulVec v0
   (Cₙ[p1 ⊗ₙ pX]).1.mulVec v1
 
 lemma three_qubit_encode_eq_encode_vec (ψ : PState 1) :
-  (three_qubit_encode ψ).vec = encode_vec ψ.vec := by
+  (three_qubit_encode ψ) = encode_vec ψ := by
     unfold three_qubit_encode;
     unfold encode_vec; aesop;
 
@@ -201,15 +203,13 @@ lemma encode_vec_linear (v w : BitVec 1 → ℂ) (a b : ℂ) :
 end AristotleLemmas
 
 lemma three_qubit_encode_correct (ψ : PState 1) : three_qubit_encode ψ =
-  PState.sum (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero)
-  (qub_one ⊗ₚ qub_one ⊗ₚ qub_one) (ψ 0) (ψ 1) (single_qub_normalized _)
-  (prod_orth_left zero_one_orth) := by
+  ψ 0 • (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero) + ψ 1 • (qub_one ⊗ₚ qub_one ⊗ₚ qub_one) := by
   -- Apply the linearity of the encoding function to split the sum into the sum of the encoded vectors.
-  have h_split : encode_vec ψ.vec = ψ 0 • encode_vec qub_zero.vec + ψ 1 • encode_vec qub_one.vec := by
-    rw [ vec_eq_linear_combo, encode_vec_linear ];
+  have h_split : encode_vec ψ = ψ 0 • encode_vec qub_zero + ψ 1 • encode_vec qub_one := by
+    rw [ vec_eq_linear_combo ψ, encode_vec_linear ];
   apply Ket.ext;
   -- Apply the equality of vectors from `h_split` to conclude the proof.
-  have h_eq : (three_qubit_encode ψ).vec = (ψ 0 • (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero).vec + ψ 1 • (qub_one ⊗ₚ qub_one ⊗ₚ qub_one).vec) := by
+  have h_eq : (three_qubit_encode ψ) = (ψ 0 • (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero) + ψ 1 • (qub_one ⊗ₚ qub_one ⊗ₚ qub_one)) := by
     convert h_split using 2;
     · congr! 1;
       convert three_qubit_encode_eq_encode_vec qub_zero |> Eq.symm;
@@ -237,7 +237,7 @@ lemma beq_eq : (beq.symm 0#1) = 0 := by
 lemma qub_zero_Z : qub_zero.apply pZ = qub_zero := by
   simp [PState.apply]
   simp only [qub_zero]
-  rw [Ket.mk.injEq]
+  funext i
   unfold Equiv.arrowCongr
   unfold pZ
   simp only [unitary_fin_equiv]
@@ -250,7 +250,7 @@ lemma qub_zero_Z : qub_zero.apply pZ = qub_zero := by
 lemma qub_one_Z : qub_one.apply pZ = Ket.phase_mul qub_one ⟨-1, by simp⟩ := by
   simp [PState.apply]
   simp only [qub_one]
-  rw [Ket.mk.injEq]
+  funext i
   unfold Equiv.arrowCongr
   unfold pZ
   simp only [unitary_fin_equiv]

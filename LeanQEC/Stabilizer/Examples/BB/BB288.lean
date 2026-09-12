@@ -5,7 +5,7 @@ import LeanQEC.ComputerAlgebra.BitVecCorrectness
 import LeanQEC.Stabilizer.BB
 import LeanQEC.Stabilizer.BitVecSATToDist
 set_option maxRecDepth 9999999
-set_option sat.solver "./logger.bat"
+-- set_option sat.solver "./logger.bat"  -- debug CNF-dump hook; logger.bat does not solve
 def BB288_A :=
   let l := 12
   let m := 12

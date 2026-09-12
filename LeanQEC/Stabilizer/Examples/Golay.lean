@@ -49,7 +49,7 @@ lemma golay_ker_correct : golay_ker = flatten_matrix golay_ker' := by decide
 lemma golay_ind : LinearIndependent (ZMod 2) golay_mat' := by
   rw [linear_indep_SAT_correct, ←golay_mat_correct, golay_mat]
   simp only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-    getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+    getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
     Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
     BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
     Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
@@ -60,7 +60,7 @@ lemma golay_ind : LinearIndependent (ZMod 2) golay_mat' := by
 lemma golay_ker_ind : LinearIndependent (ZMod 2) golay_ker' := by
   rw [linear_indep_SAT_correct, ←golay_ker_correct, golay_ker]
   simp only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-    getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+    getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
     Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
     BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
     Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
@@ -98,14 +98,14 @@ lemma golay_dist : lt_dist_sat (flatten_matrix golay_mat') (flatten_matrix golay
   := by
   rw [←golay_mat_correct, ←golay_ker_correct, golay_mat, golay_ker]
   simp only [lt_dist_sat, Nat.reduceMul, loc_constraints, loc_constraints_aux, loc_constraints_ith,
-    Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, loc_constraints_ith_jth_aux,
+    Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, Nat.succ_eq_add_one, loc_constraints_ith_jth_aux,
     loc_constraints_ith_jth, one_mul, Nat.cast_ofNat, BitVec.ofNat_eq_ofNat, zero_mul, eq_iff_iff,
     Nat.reduceLT, Nat.one_lt_ofNat, Nat.cast_one, Nat.ofNat_pos, Nat.cast_zero, parity_constraints,
     parity_constraints_aux, BitVec.dot_product, dot_product_aux, BitVec.row,
     Bool.not_eq_eq_eq_not, Bool.not_true,
     bne_eq_false_iff_eq, decide_eq_true_eq, rowspace_constraints,
     rowspace_constraints_aux, not_and, and_imp]
-  bv_check "Golay.lean-golay_dist-108-2.lrat"
+  bv_decide
 
 lemma golay_ker_mat_correct : golay_ker'.is_ker_for golay_mat' := by
   apply Matrix.is_ker_for_of_rank_sum_mutually_orth _ _ golay_mat_rank golay_ker_rank (by norm_num) golay_mat_ker_orth

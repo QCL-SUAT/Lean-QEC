@@ -31,7 +31,7 @@ lemma steane_ker_correct : steane_ker = flatten_matrix steane_ker' := by decide
 lemma steane_ind : LinearIndependent (ZMod 2) steane_mat' := by
   rw [linear_indep_SAT_correct, ←steane_mat_correct, steane_mat]
   simp only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-    getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+    getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
     Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
     BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
     Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
@@ -42,7 +42,7 @@ lemma steane_ind : LinearIndependent (ZMod 2) steane_mat' := by
 lemma steane_ker_ind : LinearIndependent (ZMod 2) steane_ker' := by
   rw [linear_indep_SAT_correct, ←steane_ker_correct, steane_ker]
   simp only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-    getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+    getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
     Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
     BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
     Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
@@ -83,7 +83,7 @@ lemma steane_dist : lt_dist_sat (flatten_matrix steane_mat') (flatten_matrix ste
   := by
   rw [←steane_mat_correct, ←steane_ker_correct, steane_mat, steane_ker]
   simp only [lt_dist_sat, symmetry_constraints, symmetry_constraints_aux, Nat.reduceMul, loc_constraints, loc_constraints_aux, loc_constraints_ith,
-    Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, loc_constraints_ith_jth_aux,
+    Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, Nat.succ_eq_add_one, loc_constraints_ith_jth_aux,
     loc_constraints_ith_jth, one_mul, Nat.cast_ofNat, BitVec.ofNat_eq_ofNat, zero_mul, eq_iff_iff,
     Nat.reduceLT, Nat.one_lt_ofNat, Nat.cast_one, Nat.ofNat_pos, Nat.cast_zero, parity_constraints,
     parity_constraints_aux, BitVec.dot_product, dot_product_aux, BitVec.row,
@@ -91,8 +91,8 @@ lemma steane_dist : lt_dist_sat (flatten_matrix steane_mat') (flatten_matrix ste
     bne_eq_false_iff_eq, decide_eq_true_eq, rowspace_constraints,
     rowspace_constraints_aux, not_and, and_imp, BitVec.reduceExtractLsb', BitVec.reduceGetElem, Bool.and_true, Bool.and_false,
     bne_self_eq_false, Bool.bne_false, Bool.false_bne, bne_iff_ne, ne_eq, not_or, Decidable.not_not]
-  bv_check "Steane.lean-steane_dist-94-2.lrat"
-  --bv_check (timeout := 999)"Steane.lean-steane_dist-93-2.lrat"
+  bv_decide
+  --bv_decide (timeout := 999)
 
 lemma steane_ker_mat_correct : steane_ker'.is_ker_for steane_mat' := by
   apply Matrix.is_ker_for_of_rank_sum_mutually_orth _ _ steane_mat_rank steane_ker_rank (by norm_num) steane_mat_ker_orth

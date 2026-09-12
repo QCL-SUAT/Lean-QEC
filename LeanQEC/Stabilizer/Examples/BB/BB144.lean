@@ -44,25 +44,27 @@ lemma BB144_X_rank : 66 ≤ BB144_X_mat.rank := by
   apply Matrix.rank_le_of_submatrix_independent _ BB144indrowsx BB144StrictMono_indrowsx
   rw [linear_indep_SAT_correct,  ←BB144_X_submat_correct, BB144_X_submat]
   simp (maxSteps := 9999999) only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-      getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+      getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
       Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
       BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
       Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
       bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
       Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq, Nat.reduceSucc]
 
+  simp only [BitVec.getElemBang_eq_getLsbD]
   bv_decide (timeout := 999999) (maxSteps := 99999999)
 set_option maxHeartbeats 0 in
 lemma BB144_Z_rank : 66 ≤ BB144_Z_mat.rank := by
   apply Matrix.rank_le_of_submatrix_independent _ BB144indrowsz BB144StrictMono_indrowsz
   rw [linear_indep_SAT_correct,  ←BB144_Z_submat_correct, BB144_Z_submat]
   simp (maxSteps := 9999999) only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
-      getElem!_pos, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+      getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
       Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
       BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
       Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
       bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
       Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq, Nat.reduceSucc]
+  simp only [BitVec.getElemBang_eq_getLsbD]
   bv_decide (timeout := 999999) (maxSteps := 99999999)
 set_option maxHeartbeats 0 in
 lemma BB144_X_ker_rank : 78 ≤ BB144_X_ker_mat.rank := by
@@ -92,7 +94,7 @@ set_option maxHeartbeats 0 in
 lemma BB144_dist_z : lt_dist_sat BB144_X BB144_Z_ker 11 8 := by
   rw [BB144_X, BB144_Z_ker]
   simp (maxSteps := 9999999) only [lt_dist_sat, Nat.reduceMul, loc_constraints, loc_constraints_aux, loc_constraints_ith,
-  symmetry_constraints, symmetry_constraints_aux,  Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, loc_constraints_ith_jth_aux,
+  symmetry_constraints, symmetry_constraints_aux,  Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, Nat.succ_eq_add_one, loc_constraints_ith_jth_aux,
   loc_constraints_ith_jth, one_mul, Nat.cast_ofNat, BitVec.ofNat_eq_ofNat, zero_mul, eq_iff_iff,
   Nat.reduceLT, Nat.one_lt_ofNat, Nat.cast_one, Nat.ofNat_pos, Nat.cast_zero, parity_constraints,
   parity_constraints_aux, BitVec.dot_product, dot_product_aux, BitVec.row,
@@ -103,7 +105,7 @@ set_option maxHeartbeats 0 in
 lemma BB144_dist_x : lt_dist_sat BB144_Z BB144_X_ker 11 8 := by
   rw [BB144_Z, BB144_X_ker]
   simp (maxSteps := 9999999) only [lt_dist_sat, Nat.reduceMul, loc_constraints, loc_constraints_aux, loc_constraints_ith,
-  symmetry_constraints, symmetry_constraints_aux,  Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, loc_constraints_ith_jth_aux,
+  symmetry_constraints, symmetry_constraints_aux,  Nat.add_one_sub_one, Nat.lt_add_one, getElem!_pos, Nat.succ_eq_add_one, loc_constraints_ith_jth_aux,
   loc_constraints_ith_jth, one_mul, Nat.cast_ofNat, BitVec.ofNat_eq_ofNat, zero_mul, eq_iff_iff,
   Nat.reduceLT, Nat.one_lt_ofNat, Nat.cast_one, Nat.ofNat_pos, Nat.cast_zero, parity_constraints,
   parity_constraints_aux, BitVec.dot_product, dot_product_aux, BitVec.row,
