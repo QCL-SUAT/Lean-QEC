@@ -66,13 +66,13 @@ lemma steane_ker_rank : 4 ≤ steane_ker'.rank := by
 lemma steane_orth : steane_mat'.mutually_orth_rows steane_mat' := by
   rw [←mutually_orth_nat_correct, ←steane_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 
 
 lemma steane_mat_ker_orth : steane_mat'.mutually_orth_rows steane_ker' := by
   rw [←mutually_orth_nat_correct, ←steane_mat_correct, ←steane_ker_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 
 
 

@@ -94,19 +94,19 @@ set_option maxHeartbeats 0
 lemma BB72_XZ_orth : BB72_X_mat.mutually_orth_rows BB72_Z_mat := by
   rw [←mutually_orth_nat_correct, ←BB72_X_correct, ←BB72_Z_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB72_X_ker_orth : BB72_X_mat.mutually_orth_rows BB72_X_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB72_X_correct, BB72_X_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB72_Z_ker_orth : BB72_Z_mat.mutually_orth_rows BB72_Z_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB72_Z_correct, BB72_Z_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option maxHeartbeats 0 in
 lemma BB72_dist_z : lt_dist_sat BB72_X BB72_Z_ker 5 7 := by
   rw [BB72_X, BB72_Z_ker]

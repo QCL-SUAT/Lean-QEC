@@ -84,12 +84,12 @@ lemma golay_ker_rank : 12 ≤ golay_ker'.rank := by
 lemma golay_orth : golay_mat'.mutually_orth_rows golay_mat' := by
   rw [←mutually_orth_nat_correct, ←golay_mat_correct, golay_mat]
   simp [bitvec_mutually_orth_nat]
-  native_decide
+  decide
 
 lemma golay_mat_ker_orth : golay_mat'.mutually_orth_rows golay_ker' := by
   rw [←mutually_orth_nat_correct, ←golay_mat_correct, ←golay_ker_correct, golay_mat, golay_ker]
   simp [bitvec_mutually_orth_nat]
-  native_decide
+  decide
 
 
 

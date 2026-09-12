@@ -76,7 +76,7 @@ lemma BB18_X_ker_rank : 11 ≤ BB18_X_ker_mat.rank := by
       Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
       bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
       Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq]
-  sorry
+  bv_decide
 set_option maxHeartbeats 0 in
 lemma BB18_Z_ker_rank : 11 ≤ BB18_Z_ker_mat.rank := by
   apply Matrix.rank_le_of_submatrix_independent _ id (strictMono_id)
@@ -89,25 +89,25 @@ lemma BB18_Z_ker_rank : 11 ≤ BB18_Z_ker_mat.rank := by
       Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
       bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
       Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq]
-  sorry
+  bv_decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB18_XZ_orth : BB18_X_mat.mutually_orth_rows BB18_Z_mat := by
   rw [←mutually_orth_nat_correct, ←BB18_X_correct, ←BB18_Z_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB18_X_ker_orth : BB18_X_mat.mutually_orth_rows BB18_X_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB18_X_correct, BB18_X_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB18_Z_ker_orth : BB18_Z_mat.mutually_orth_rows BB18_Z_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB18_Z_correct, BB18_Z_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option maxHeartbeats 0 in
 lemma BB18_dist_z : lt_dist_sat BB18_X BB18_Z_ker 3 5 := by
   rw [BB18_X, BB18_Z_ker]

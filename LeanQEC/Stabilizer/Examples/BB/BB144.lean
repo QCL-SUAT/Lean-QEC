@@ -68,28 +68,48 @@ lemma BB144_Z_rank : 66 ≤ BB144_Z_mat.rank := by
   bv_decide (timeout := 999999) (maxSteps := 99999999)
 set_option maxHeartbeats 0 in
 lemma BB144_X_ker_rank : 78 ≤ BB144_X_ker_mat.rank := by
-  sorry
+  apply Matrix.rank_le_of_submatrix_independent _ id (strictMono_id)
+  rw [Matrix.submatrix_id_id]
+  rw [linear_indep_SAT_correct, BB144_X_ker_mat_correct, BB144_X_ker]
+  simp (maxSteps := 9999999) only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
+      getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+      Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
+      BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
+      Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
+      bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
+      Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq]
+  bv_normalize
 set_option maxHeartbeats 0 in
 lemma BB144_Z_ker_rank : 78 ≤ BB144_Z_ker_mat.rank := by
-  sorry
+  apply Matrix.rank_le_of_submatrix_independent _ id (strictMono_id)
+  rw [Matrix.submatrix_id_id]
+  rw [linear_indep_SAT_correct, BB144_Z_ker_mat_correct, BB144_Z_ker]
+  simp (maxSteps := 9999999) only [linear_indep_SAT, nonzero, nonzero_aux, Nat.add_one_sub_one, Nat.lt_add_one,
+      getElem!_pos, Nat.succ_eq_add_one, Nat.one_lt_ofNat, Nat.ofNat_pos, Bool.decide_or, Bool.decide_eq_true,
+      Bool.or_eq_true, all_dot_zero, all_dot_zero_aux, dot_col_zero, dot_col_aux, Nat.reduceMul,
+      BitVec.ofNat_eq_ofNat, Nat.reduceAdd, BitVec.reduceGetElem, Bool.and_true, one_mul,
+      Nat.reduceLT, zero_mul, zero_add, Bool.and_false, Bool.false_bne, Bool.bne_false,
+      bne_self_eq_false, add_zero, Bool.not_and, Bool.not_or, Bool.not_not, Bool.and_eq_true,
+      Bool.not_eq_eq_eq_not, Bool.not_true, bne_iff_ne, ne_eq]
+  bv_normalize
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB144_XZ_orth : BB144_X_mat.mutually_orth_rows BB144_Z_mat := by
   rw [←mutually_orth_nat_correct, ←BB144_X_correct, ←BB144_Z_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB144_X_ker_orth : BB144_X_mat.mutually_orth_rows BB144_X_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB144_X_correct, BB144_X_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option exponentiation.threshold 10000
 set_option maxHeartbeats 0
 lemma BB144_Z_ker_orth : BB144_Z_mat.mutually_orth_rows BB144_Z_ker_mat := by
   rw [←mutually_orth_nat_correct, ←BB144_Z_correct, BB144_Z_ker_mat_correct]
   unfold bitvec_mutually_orth_nat
-  native_decide
+  decide
 set_option maxHeartbeats 0 in
 lemma BB144_dist_z : lt_dist_sat BB144_X BB144_Z_ker 11 8 := by
   rw [BB144_X, BB144_Z_ker]

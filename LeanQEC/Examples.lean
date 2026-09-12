@@ -100,16 +100,10 @@ open Qubit Function Matrix
 lemma qub_zero_apply_X : qub_zero.apply pX = qub_one := by
   ext i; fin_cases i ; simp +decide [ qub_zero, qub_one, pX ] ;
   · unfold unitary_fin_equiv; aesop;
-    convert rfl;
-    ext i ; fin_cases i <;> norm_num [ Matrix.mulVec, dotProduct ];
-    · simp ( config := { decide := Bool.true } ) [ Qubit.X ];
-      simp ( config := { decide := Bool.true } ) [ beq ];
-      simp ( config := { decide := Bool.true } ) [ BitVec.equivFin ];
-      exact Or.inl rfl;
-    · simp ( config := { decide := Bool.true } ) [ Qubit.X ];
-      simp ( config := { decide := Bool.true } ) [ beq ];
-      field_simp;
-      erw [ Matrix.cons_val_zero, Matrix.cons_val_one ] ; norm_num;
+    -- The goal here is a *scalar* equation (one entry of a matrix-vector product),
+    -- so the old `ext i; fin_cases i` no longer applies; evaluate it directly.
+    simp ( config := { decide := Bool.true } ) [ Matrix.mulVec, dotProduct, Matrix.submatrix_apply,
+      Equiv.arrowCongr_apply, Qubit.X, beq, BitVec.equivFin ];
   · unfold qub_zero qub_one PState.apply; norm_num [ Matrix.mulVec ] ;
     unfold pX;
     unfold Qubit.X;
@@ -202,27 +196,25 @@ lemma encode_vec_linear (v w : BitVec 1 → ℂ) (a b : ℂ) :
 
 end AristotleLemmas
 
+-- The rewritten proof below is elaboration-heavy (nested kron/smul under a funext),
+-- so it needs a larger heartbeat budget than the 200000 default.
+set_option maxHeartbeats 4000000 in
 lemma three_qubit_encode_correct (ψ : PState 1) : three_qubit_encode ψ =
   ψ 0 • (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero) + ψ 1 • (qub_one ⊗ₚ qub_one ⊗ₚ qub_one) := by
   -- Apply the linearity of the encoding function to split the sum into the sum of the encoded vectors.
   have h_split : encode_vec ψ = ψ 0 • encode_vec qub_zero + ψ 1 • encode_vec qub_one := by
     rw [ vec_eq_linear_combo ψ, encode_vec_linear ];
-  apply Ket.ext;
+    congr 1 <;> simp [Pi.add_apply, Pi.smul_apply, smul_eq_mul]
+  funext x;
   -- Apply the equality of vectors from `h_split` to conclude the proof.
   have h_eq : (three_qubit_encode ψ) = (ψ 0 • (qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero) + ψ 1 • (qub_one ⊗ₚ qub_one ⊗ₚ qub_one)) := by
-    convert h_split using 2;
-    · congr! 1;
-      convert three_qubit_encode_eq_encode_vec qub_zero |> Eq.symm;
-      simp +zetaDelta at *;
-      convert three_qubit_encode_eq_encode_vec qub_zero using 1;
-      rw [ three_qubit_encode_zero ];
-      congr! 1;
-      exact Eq.symm PState.kron_assoc;
-    · rw [ ← three_qubit_encode_eq_encode_vec ];
-      rw [ three_qubit_encode_one ];
-      congr! 2;
-      exact Eq.symm PState.kron_assoc;
-  intro x
+    have hz : encode_vec qub_zero = qub_zero ⊗ₚ qub_zero ⊗ₚ qub_zero := by
+      rw [ ← three_qubit_encode_eq_encode_vec, three_qubit_encode_zero ];
+      exact PState.kron_assoc
+    have ho : encode_vec qub_one = qub_one ⊗ₚ qub_one ⊗ₚ qub_one := by
+      rw [ ← three_qubit_encode_eq_encode_vec, three_qubit_encode_one ];
+      exact PState.kron_assoc
+    rw [ three_qubit_encode_eq_encode_vec, h_split, hz, ho ];
   exact congrFun h_eq x
 
 
@@ -247,20 +239,18 @@ lemma qub_zero_Z : qub_zero.apply pZ = qub_zero := by
   simp [Matrix.vecHead, Matrix.vecTail]
 
 @[simp]
-lemma qub_one_Z : qub_one.apply pZ = Ket.phase_mul qub_one ⟨-1, by simp⟩ := by
-  simp [PState.apply]
+lemma qub_one_Z : qub_one.apply pZ = (-1 : ℂ) • qub_one := by
   simp only [qub_one]
   funext i
   unfold Equiv.arrowCongr
   unfold pZ
   simp only [unitary_fin_equiv]
   simp [Qubit.Z]
-  simp [Matrix.submatrix_mulVec_equiv]
   simp [Matrix.vecHead, Matrix.vecTail]
-  simp [Ket.phase_mul]
-  rw [<- Pi.neg_comp]
-  congr
-  aesop
+  -- The goal here is a two-case vector identity on `BitVec 1`, so split on `i`
+  -- rather than rewriting through `Pi.neg_comp` (which the old `Ket.phase_mul`
+  -- statement needed and the PState statement does not).
+  fin_cases i <;> simp [beq, BitVec.equivFin]
 
 abbrev fold1 {n} (t : Fin n → Pauli) := foldPauli (1, t)
 
@@ -388,8 +378,10 @@ lemma pphase_pauli1 {n : ℕ} {p : PauliGroup n} :
     -- Since the tail of the sequence is all identities, the anticommuteₘ of the tail with any m is false.
     intros m
     simp [commute₁];
-    convert ih ( Fin.tail m ) using 1;
-    exact ⟨ 1, mem_PauliGroup_id ⟩;
+    -- `ih`'s first argument is *implicit* (`{p : ↥(PauliGroup n)}`), so leaving it
+    -- to unification turned it into a goal. Supply it explicitly instead.
+    convert ih ( p := ⟨ 1, mem_PauliGroup_id ⟩ ) ( Fin.tail m ) using 1
+    congr 1
   aesop
 
 
@@ -407,10 +399,10 @@ lemma pauli_weight_one_contra {n : ℕ} {E : PauliGroup n}
     simp only [ne_eq, Finset.mem_filter, Finset.mem_univ, true_and]
     rcases hx with rfl | rfl <;> assumption
   apply absurd hpw (not_le_of_gt (lt_of_lt_of_le one_lt_two _))
-  convert (Finset.card_le_card hsub)
-  symm
-  rw [Finset.card_eq_two]
-  refine ⟨i₁, i₂, hne, rfl⟩
+  have h2 : ({i₁, i₂} : Finset (Fin n)).card = 2 := by
+    rw [Finset.card_eq_two]
+    exact ⟨i₁, i₂, hne, rfl⟩
+  exact le_trans (le_of_eq h2.symm) (Finset.card_le_card hsub)
 
 lemma pauli_only_X_contra_Y {n : ℕ} {E : PauliGroup n}
 (hpo : pauli_only E Pauli_X) {i : Fin n} :
