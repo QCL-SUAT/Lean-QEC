@@ -1,0 +1,38 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["84c882a11a8dfc82.olean"],
+  "m": false,
+  "i": "3a6308a7667e4493.ilean",
+  "c": "08e695a4de340c7e.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\lean\\mathlib4\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\build\\lib\\lean;C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean c:\\Users\\Administrator\\.elan\\toolchains\\leanprover--lean4---v4.34.0\\bin\\lean.exe C:\\lean\\libs\\Lean-QEC\\LeanQEC\\AI_Generated\\KronNonsense.lean -o C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\AI_Generated\\KronNonsense.olean -i C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\AI_Generated\\KronNonsense.ilean -c C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\AI_Generated\\KronNonsense.c --setup C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\AI_Generated\\KronNonsense.setup.json --json",
+   "level": "trace"},
+  {"message":
+   "LeanQEC/AI_Generated/KronNonsense.lean:54:82: aesop: failed to prove the goal after exhaustive search.",
+   "level": "warning"},
+  {"message":
+   "LeanQEC/AI_Generated/KronNonsense.lean:56:4: aesop: failed to prove the goal after exhaustive search.",
+   "level": "warning"}],
+ "inputs":
+ [["deps",
+   [["LeanQEC/LeanQEC:extraDep", [["@LeanQEC:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["Mathlib transitive imports (legacy)", "ef59c27523d1dbb3"],
+      ["Mathlib:importAllArts", "ca58bc801ef1904e"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+   "a1c6c7aa3e9abfe7"],
+  ["C:\\lean\\libs\\Lean-QEC\\LeanQEC\\AI_Generated\\KronNonsense.lean",
+   "ec0280adea305744"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanQEC.AI_Generated.KronNonsense", "1a32c32ce7570632"],
+  ["Package.id?: (some LeanQEC)", "2d2c6dec2b566741"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "f8c55453424b077f"}

@@ -1,0 +1,31 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["598ef08ecd77c924.olean"],
+  "m": false,
+  "i": "c3a959f5f1485702.ilean",
+  "c": "8c397b8976df9e50.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\lean\\mathlib4\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\build\\lib\\lean;C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean c:\\Users\\Administrator\\.elan\\toolchains\\leanprover--lean4---v4.34.0\\bin\\lean.exe C:\\lean\\libs\\Lean-QEC\\LeanQEC.lean -o C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC.olean -i C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC.ilean -c C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC.c --setup C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["deps",
+   [["LeanQEC/LeanQEC:extraDep", [["@LeanQEC:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["LeanQEC.Basic transitive imports (legacy)", "07c61751e6ae8c92"],
+      ["LeanQEC.Basic:importAllArts", "4edd697f81ef3037"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+   "a1c6c7aa3e9abfe7"],
+  ["C:\\lean\\libs\\Lean-QEC\\LeanQEC.lean", "39fb1594c7033f9b"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanQEC", "2348cdebc1e2bf3a"],
+  ["Package.id?: (some LeanQEC)", "2d2c6dec2b566741"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "be370e698594e0e7"}

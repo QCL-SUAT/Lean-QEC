@@ -1,0 +1,33 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["c768a944bb8a8ecb.olean"],
+  "m": false,
+  "i": "2ff8ef2b197b1223.ilean",
+  "c": "b5eb9cdaf96660b3.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\lean\\mathlib4\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\build\\lib\\lean;C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean c:\\Users\\Administrator\\.elan\\toolchains\\leanprover--lean4---v4.34.0\\bin\\lean.exe C:\\lean\\libs\\Lean-QEC\\LeanQEC\\Unitary\\Paulis\\PauliMul.lean -o C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\Unitary\\Paulis\\PauliMul.olean -i C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\Unitary\\Paulis\\PauliMul.ilean -c C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\Unitary\\Paulis\\PauliMul.c --setup C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\Unitary\\Paulis\\PauliMul.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["deps",
+   [["LeanQEC/LeanQEC:extraDep", [["@LeanQEC:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["LeanQEC.AI_Generated.Pauli1Mul transitive imports (legacy)",
+       "3ba1704395ba7ccd"],
+      ["LeanQEC.AI_Generated.Pauli1Mul:importAllArts", "8b3deecd079fe5bd"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+   "a1c6c7aa3e9abfe7"],
+  ["C:\\lean\\libs\\Lean-QEC\\LeanQEC\\Unitary\\Paulis\\PauliMul.lean",
+   "114b136bba49606e"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanQEC.Unitary.Paulis.PauliMul", "34ddd2985f650690"],
+  ["Package.id?: (some LeanQEC)", "2d2c6dec2b566741"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "70d30859fc8ddae7"}

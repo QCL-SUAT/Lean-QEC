@@ -1,0 +1,33 @@
+{"synthetic": false,
+ "schemaVersion": "2025-09-10",
+ "outputs":
+ {"o": ["1ba235b5d9625346.olean"],
+  "m": false,
+  "i": "4d6344dd522607cd.ilean",
+  "c": "2278d5121e70c61f.c"},
+ "log":
+ [{"message":
+   ".> LEAN_PATH=C:\\lean\\mathlib4\\.lake\\packages\\Cli\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\batteries\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\Qq\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\aesop\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\proofwidgets\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\importGraph\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\LeanSearchClient\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\packages\\plausible\\.lake\\build\\lib\\lean;C:\\lean\\mathlib4\\.lake\\build\\lib\\lean;C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean c:\\Users\\Administrator\\.elan\\toolchains\\leanprover--lean4---v4.34.0\\bin\\lean.exe C:\\lean\\libs\\Lean-QEC\\LeanQEC\\Unitary\\Paulis\\PauliCommute.lean -o C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\Unitary\\Paulis\\PauliCommute.olean -i C:\\lean\\libs\\Lean-QEC\\.lake\\build\\lib\\lean\\LeanQEC\\Unitary\\Paulis\\PauliCommute.ilean -c C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\Unitary\\Paulis\\PauliCommute.c --setup C:\\lean\\libs\\Lean-QEC\\.lake\\build\\ir\\LeanQEC\\Unitary\\Paulis\\PauliCommute.setup.json --json",
+   "level": "trace"}],
+ "inputs":
+ [["deps",
+   [["LeanQEC/LeanQEC:extraDep", [["@LeanQEC:extraDep", "00000000000006bb"]]],
+    ["imports",
+     [["LeanQEC.Unitary.Paulis.PauliMul transitive imports (legacy)",
+       "73b95e0af9fc5395"],
+      ["LeanQEC.Unitary.Paulis.PauliMul:importAllArts", "2a24c3c512017526"]]]]],
+  ["libs",
+   [["import dynlibs", "00000000000006bb"],
+    ["package external libraries", "00000000000006bb"],
+    ["module dynlibs", "00000000000006bb"],
+    ["module plugins", "00000000000006bb"]]],
+  ["Lean 4.34.0, commit 293d5d0c0c3f3dded4688b3ccd6a33939ac5102b",
+   "a1c6c7aa3e9abfe7"],
+  ["C:\\lean\\libs\\Lean-QEC\\LeanQEC\\Unitary\\Paulis\\PauliCommute.lean",
+   "92f5df069e9d3fec"],
+  ["options", "00000000000006bb"],
+  ["isModule: false", "feefd2a0d3a1847e"],
+  ["Module.name: LeanQEC.Unitary.Paulis.PauliCommute", "c8a16c7b1c2b1adf"],
+  ["Package.id?: (some LeanQEC)", "2d2c6dec2b566741"],
+  ["Module.leanArgs: #[]", "00000000000006bb"]],
+ "depHash": "5b1b05663ab72100"}
