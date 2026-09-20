@@ -656,7 +656,6 @@ lemma nonzero_correct {r : ℕ} (x : Fin r → (ZMod 2))
     -- By definition of `nonzero`, we have that `nonzero (vec_to_BitVec x) = true` if and only if there exists some `i` such that `x i ≠ 0`.
     simp [nonzero];
     by_cases hr : r = 0 <;> simp_all +decide [ funext_iff, nonzero_aux ];
-    · subst hr; exact fun i => Fin.elim0 i;
     · constructor;
       · intro h_nonzero
         by_contra h_contra

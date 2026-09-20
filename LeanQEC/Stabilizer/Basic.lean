@@ -1272,8 +1272,6 @@ lemma StabCode.stabSymplecticSpace_le_normalizerSpace {n : ℕ} (C : StabCode n)
         have h_comm : ∀ (s t : ↥C.stabs), s * t = t * s := by
           exact fun s t => mul_comm' s t;
         convert congr_arg Subtype.val ( h_comm ⟨ s, hs ⟩ ⟨ t, ht ⟩ ) using 1
-        rfl
-        rfl
       exact (commute_iff_commute s t).2 h_comm
     exact (commute_iff_symplecticProd_zero s t).1 h_comm
   exact (by
